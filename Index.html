@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html = style="height: 100%;">
+  <head>
+    <title>Verra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="scripts/leaflet.css">
+    <script src="scripts/leaflet.js"></script>
+  </head>
+  
+  <body style="height: 100%;margin: 0;">
+    <div id="map" style="width: 100%; height: 100%; background: #FFFFFF;"></div>
+    <script type="text/javascript">
+  //Creating the Map
+    var map = L.map('map').setView([0, 0], 0);
+    L.tileLayer('map/{z}/{x}/{y}.png', {
+      continuousWorld: false,
+      noWrap: true,  
+      minZoom: 3,
+      maxZoom: 5,
+    }).addTo(map);
+  //Coordinate Finder
+    var marker = L.marker([0, 0], {
+      draggable: true,
+    }).addTo(map);
+    marker.bindPopup('LatLng Marker').openPopup();
+    marker.on('dragend', function(e) {
+      marker.getPopup().setContent(marker.getLatLng().toString()).openOn(map);
+    });
+  //Markers
+  var Zone_Riverlands = L.marker([-18.979026, -43.769531]).bindPopup('The Kaela Riverlands<br><a href="file:///F:/Ashes%20Of%20Creation/Interactive%20map/Riverlands/Index.html">Go to map</a>')
+  var Zone_Desert = L.marker([-31.877558, -18.896484]).bindPopup('The Sandsquall Desert')
+  var Zone_Jundark = L.marker([-38.341656, -61.875]).bindPopup('The Jundark')
+  var Zone_Dunzenkell = L.marker([30.600094, -50.273438]).bindPopup('Dunzenkell Mountains')
+  var Zone_Sojuma = L.marker([45.95115, -56.601563]).bindPopup('Sujoma')
+  var Zone_Draakathbohr = L.marker([43.707594, -9.052734]).bindPopup('Draakathbohr')
+  var Zone_FrostgraveFells = L.marker([35.817813, 30.058594]).bindPopup('The Frostgrave Fells')
+  var Zone_Peligora = L.marker([-43.644026, 68.730469]).bindPopup('Peligora')
+  var Zone_FortunicOcean = L.marker([26.588527, -82.353516]).bindPopup('The Fortunic Ocean')
+  var Zone_UmbralSea = L.marker([30.448674, -7.382813]).bindPopup('The Umbral Sea')
+  var Zone_TradewindSea = L.marker([-20.550509, 5.185547]).bindPopup('Tradewind Sea')
+  var Zone_AvaricOcean = L.marker([-22.024546, 73.652344]).bindPopup('The Avaric Ocean')
+  //Marker Groups
+	var mg_Zone = L.layerGroup([Zone_Desert,Zone_Dunzenkell,Zone_Jundark,Zone_Riverlands,Zone_FrostgraveFells,Zone_Peligora,Zone_Sojuma,Zone_Draakathbohr,Zone_FortunicOcean,Zone_UmbralSea,Zone_TradewindSea,Zone_AvaricOcean]);
+//Marker Overlay
+    var overlays={
+        "Zones" : mg_Zone,
+    }
+//GROUP CONTROLS
+    L.control.layers(null, overlays).addTo(map);
+    </script>
+  </body>
+</html>
